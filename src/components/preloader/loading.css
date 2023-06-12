@@ -1,0 +1,74 @@
+:root
+{
+    --accent-color: rgb(86, 210, 255);
+}
+
+.loading-container
+{
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    color: var(--accent-color);
+    z-index: 9999;
+}
+
+.spinner
+{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.spinner>span
+{
+    font-size: 50px;
+}
+
+.spinner-icon
+{
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--accent-color);
+    border-radius: 50%;
+    border-top: 5px solid transparent;
+    border-right: 5px solid transparent;
+    animation: spin .5s linear infinite;
+}
+
+@keyframes spin
+{
+    0%
+    {
+        transform: rotate(0deg);
+    }
+
+    100%
+    {
+        transform: rotate(360deg);
+    }
+
+}
+
+.success
+{
+    font-size: 50px;
+    color: rgb(28, 192, 28);
+    animation: fade-in .7s linear;
+}
+
+@keyframes fade-in
+{
+    0%
+    {
+        transform: scale(.4);
+    }
+
+    100%
+    {
+        transform: scale(1);
+    }
+
+}

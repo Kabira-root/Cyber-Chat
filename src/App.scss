@@ -1,0 +1,564 @@
+$accent-color: rgb(58, 152, 185);
+$bg-color: rgb(255, 241, 220);
+$clr-2: rgb(255, 232, 212);
+$clr-3: rgb(238, 238, 238);
+$clr-4: rgb(255, 213, 179);
+$clr-orange: rgb(232, 135, 0);
+
+//Media queries
+@mixin mobile {
+    @media screen and (max-width:480px) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media screen and (max-width:768px) {
+        @content;
+    }
+}
+
+@mixin laptop {
+    @media screen and (max-width:1200px) {
+        @content;
+    }
+}
+
+@mixin desktop-wide {
+    @media screen and (max-width:1920px) {
+        @content;
+    }
+}
+
+//Global style resets
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+}
+
+button {
+    cursor: pointer;
+}
+
+body {
+    color: white;
+    font-family: roboto, system-ui;
+    font-size: 1rem;
+}
+
+//--------------------------------
+
+.container {
+    width: 100dvw;
+    height: 100dvh;
+    display: flex;
+    background-color: $accent-color;
+
+    .login {
+        width: max(350px, 30%);
+        margin: auto;
+        border-radius: 10px;
+        padding: 1.5rem;
+        text-align: center;
+        background-color: white;
+        color: $accent-color;
+
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+
+            .error-msg {
+                visibility: hidden;
+                color: rgb(231, 0, 0);
+                font-weight: 500;
+            }
+
+            input {
+                outline: none;
+                background: transparent;
+                border: none;
+                border-bottom: 1px solid $clr-2;
+                font-size: 1.1rem;
+
+                &::placeholder {
+                    color: rgb(163, 163, 163);
+                }
+            }
+
+            button {
+                cursor: pointer;
+                border-radius: 5px;
+                border: none;
+                padding: 5px 0;
+                font-size: 1.2rem;
+                font-weight: 600;
+                color: $clr-orange;
+
+                &:focus {
+                    outline: 2px solid rgb(69, 190, 255);
+                }
+            }
+        }
+
+        div {
+            margin-top: 1.5rem;
+
+            span {
+                a {
+                    text-decoration: none;
+                    color: rgb(0, 193, 227);
+                    font-weight: 500;
+
+                    &:hover {
+                        color: rgb(27, 27, 27);
+                    }
+
+                }
+
+                button {
+                    outline: none;
+                    border: none;
+                    background: transparent;
+                    color: rgb(220, 48, 0);
+                    font-family: inherit;
+                    font-weight: 500;
+                    font-size: 1rem;
+
+                    &:hover {
+                        color: rgb(27, 27, 27);
+                    }
+                }
+            }
+        }
+
+        .reset-dialog {
+            position: relative;
+            width: 250px;
+            margin: auto;
+            border: none;
+            border-radius: .5rem;
+            padding: 1rem;
+
+            &::backdrop {
+                backdrop-filter: blur(10px);
+            }
+
+            h2 {
+                color: $accent-color;
+            }
+
+            button {
+                outline: none;
+                border: none;
+                font-weight: 600;
+                padding: .3rem;
+                border-radius: 5px;
+                color: $clr-orange;
+
+                &.close {
+                    position: absolute;
+                    top: 5px;
+                    right: 5px;
+                    padding: 0 5px;
+                    background: transparent;
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    color: rgb(207, 45, 0);
+                }
+
+                &:hover {
+                    box-shadow: 0 0 2px rgba(gray, .7);
+                }
+            }
+
+            div {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1rem;
+
+                input {
+                    padding: .3rem;
+                    border: none;
+                    outline: none;
+                    border-bottom: 1px solid $accent-color;
+                }
+            }
+        }
+    }
+
+    .register {
+        @extend .login;
+        // position: relative;
+
+        #upload-image {
+            display: none;
+        }
+
+        dialog#crop-container {
+            --max-height: 90dvh;
+            max-width: 90dvw;
+            max-height: var(--max-height);
+            margin: auto;
+            border: none;
+            border-radius: .5rem;
+            // overflow: hidden;
+
+            &::backdrop {
+                backdrop-filter: blur(10px);
+            }
+
+            img {
+                max-height: calc(var(--max-height) - 7rem);
+                max-width: 100%;
+            }
+
+            button {
+                display: block;
+                border: none;
+                border-radius: .5rem;
+                margin: .5rem auto;
+                background-color: $accent-color;
+                color: white;
+                padding: .5rem;
+                font-size: 1.1rem;
+
+                &:hover {
+
+                    outline: 3px solid rgb(142, 255, 255);
+                }
+            }
+        }
+
+        form label {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            cursor: pointer;
+            color: rgb(163, 163, 163);
+
+            img {
+                height: 2.5rem;
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .sidebar {
+        min-width: 25%;
+        min-height: 100%;
+        background-color: $bg-color;
+        color: rgb(22, 42, 29);
+        overflow-y: auto;
+        z-index: 999;
+
+        @include desktop-wide {
+            min-width: 30%;
+        }
+
+        @include tablet {
+            min-width: 50%;
+        }
+
+        @include mobile {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+        }
+
+        &.collapsed {
+            @include mobile {
+                display: none;
+            }
+        }
+
+        .search {
+            .search-form {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-bottom: 2px solid lightgray;
+                margin: .5rem .5rem;
+
+                input {
+                    border: none;
+                    background: transparent;
+                    outline: none;
+                    width: 90%;
+                }
+
+                .cancel-search {
+
+                    border: none;
+                    outline: none;
+                    font-size: 1rem;
+                    font-weight: 600;
+                    color: grey;
+
+                    &:hover {
+                        color: rgb(0, 59, 137);
+                    }
+                }
+            }
+        }
+
+        .contact-card {
+            height: 3.5rem;
+            padding: .5rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            background: transparent;
+            cursor: pointer;
+
+            img {
+                height: 100%;
+                aspect-ratio: 1 / 1;
+                border-radius: 50%;
+            }
+
+            & * {
+                pointer-events: none;
+            }
+
+            // &.active {
+            //     background-color: $clr-4;
+            // }
+
+            &:hover {
+                background-color: $clr-4;
+            }
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: .3rem;
+            width: 100%;
+            height: 3rem;
+            background-color: $clr-4;
+
+            .app-icon {
+                font-size: 1.5rem;
+                font-weight: 600;
+                user-select: none;
+
+                @include mobile {
+                    display: none;
+                }
+
+                @include laptop {
+                    display: none;
+                }
+            }
+
+            div {
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+                margin-right: .5rem;
+
+                .user-icon {
+                    width: 2.5rem;
+                    aspect-ratio: 1 / 1;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+
+                .username {
+                    font-weight: 500;
+                }
+            }
+
+            .btn-logout {
+                outline: none;
+                border: none;
+                padding: .5rem .5rem;
+                border-radius: 20px;
+            }
+
+        }
+    }
+
+    .chat {
+        width: 75dvw;
+        height: 100dvh;
+        background-color: $clr-3;
+
+        @include mobile {
+            width: 100dvw;
+        }
+
+        .user-info {
+            position: relative;
+            width: 100%;
+            height: 3rem;
+            background-color: $accent-color;
+            display: flex;
+            align-items: center;
+            padding-inline: .5rem;
+            gap: 1rem;
+
+            .user-icon {
+                width: 2.5rem;
+                aspect-ratio: 1 / 1;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            .username {
+                font-weight: 500;
+            }
+
+            button {
+                position: absolute;
+                top: 0;
+                right: 0;
+                background: transparent;
+                border: none;
+                outline: none;
+                padding: .5rem .5rem;
+
+                svg {
+                    width: 2rem;
+
+                    &:hover {
+                        g {
+                            stroke: rgb(0, 111, 46);
+                        }
+                    }
+
+                    g {
+                        stroke: $accent-color;
+
+                    }
+
+                    circle {
+                        fill: white;
+                    }
+
+                }
+
+            }
+
+        }
+
+        .no-chat {
+            height: calc(100% - 3rem);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: gray;
+            font-size: 2rem;
+            font-weight: 400;
+        }
+
+        .messages {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            height: calc(100% - (3rem + 2.9rem));
+            overflow-y: scroll;
+            padding: .5rem;
+
+            .msg {
+                border-radius: 18px;
+                padding: .2rem .8rem;
+                max-width: 80%;
+                font-size: 1.1rem;
+                word-wrap: break-word;
+
+                p {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-end;
+
+                    span {
+                        padding: .1rem;
+                        font-size: .7rem;
+                        color: rgb(31, 34, 44);
+                    }
+                }
+            }
+
+            .msg-send {
+                border-top-right-radius: 0;
+                margin-left: auto;
+                background-color: rgb(0, 175, 117);
+            }
+
+            .msg-receive {
+                border-top-left-radius: 0;
+                margin-right: auto;
+                background-color: rgb(45, 123, 172);
+            }
+
+        }
+
+        .message-input {
+            align-items: center;
+            display: flex;
+            max-width: calc(100% - 1rem);
+            margin: 0 auto;
+            border-radius: 100px;
+            background-color: rgb(0, 93, 85);
+
+            input {
+                width: calc(100% - 2.6rem);
+                outline: none;
+                border: none;
+                padding: 0.65rem 0 .65rem .65rem;
+                background: transparent;
+                color: white;
+                font-size: 1.1rem;
+
+                &::placeholder {
+                    color: lightgray;
+                }
+            }
+
+            button {
+                border: none;
+                background: transparent;
+                padding: 0;
+                line-height: 0;
+                border-radius: 50%;
+
+                &:hover {
+                    outline: .1rem solid rgb(0, 209, 209);
+                    outline-offset: -.1rem;
+                }
+
+                img {
+                    width: 2.6rem;
+                    height: 2.6rem;
+                }
+            }
+        }
+    }
+}
+
+//Utility Classes
+.active {
+    background-color: $clr-4 !important;
+}
+
+.fade-in {
+    animation: fade-in 350ms ease-in;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+
+}
